@@ -170,11 +170,12 @@ public class Collection {
     public void save() {
         try {
             FileWriter writer1 = new FileWriter(file);
-            PrintWriter writer = new PrintWriter(writer1);
+            PrintWriter writer = new PrintWriter(file );
+            writer.
             writer.write("");
             int i = 0;
             for(Iterator<Organization> iterator = collection.iterator(); iterator.hasNext(); i++) {
-                writer.write(iterator.next().to);
+                writer.write(iterator.next().);
             }
         } catch (IOException e) {
             e.printStackTrace();

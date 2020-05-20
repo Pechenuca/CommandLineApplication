@@ -2,6 +2,7 @@ package Application;
 
 import Application.command.Command;
 
+import javax.xml.bind.JAXBException;
 import java.util.HashMap;
 
 public class CommandManager {
@@ -12,7 +13,7 @@ public class CommandManager {
 
     }
 
-    public void execute(String commandName, HashMap<String, Command> commandHashMap, Collection collection, String... args) {
+    public void execute(String commandName, HashMap<String, Command> commandHashMap, Collection collection, String... args) throws JAXBException {
         Command command = commandHashMap.get(commandName);
         if (command == null) {
             throw new IllegalStateException(commandName + " -- такой команды нет");
