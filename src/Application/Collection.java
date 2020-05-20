@@ -3,11 +3,11 @@ package Application;
 import Application.Address;
 
 import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.nio.file.Path;
 import java.text.NumberFormat;
 import java.time.ZonedDateTime;
+import java.util.Iterator;
 import java.util.Vector;
 
 public class Collection {
@@ -15,6 +15,7 @@ public class Collection {
     private ZonedDateTime creationTime;
     private Factory factory = new Factory();
     private int countOfOrg;
+    private File file;
     private String type = getCollection().getClass().getTypeName();
 
     public Vector<Organization> getVector() {
@@ -145,7 +146,7 @@ public class Collection {
 
         } catch (NumberFormat)
 
-        return vectorOrg.stream().filter(organization -> organization.getStreet()) > address1.count();
+        return vectorOrg.stream().filter(organization -> organization.getOfficialAddress()) > address1.count();
 
     }
 
@@ -168,7 +169,15 @@ public class Collection {
 
     public void save() {
         try {
-
+            FileWriter writer1 = new FileWriter(file);
+            PrintWriter writer = new PrintWriter(writer1);
+            writer.write("");
+            int i = 0;
+            for(Iterator<Organization> iterator = collection.iterator(); iterator.hasNext(); i++) {
+                writer.write(iterator.next().to);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

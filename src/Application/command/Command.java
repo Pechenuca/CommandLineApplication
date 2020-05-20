@@ -3,6 +3,7 @@ package Application.command;
 import Application.CommandManager;
 
 import javax.activation.CommandMap;
+import javax.xml.bind.JAXBException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
@@ -12,7 +13,7 @@ public class Command {
     private String description;
     private String args = "";
 
-    public void execute(HashMap<String, Command> hashMap, Collection collection, CommandManager commandManager, String... arg) {
+    public void execute(HashMap<String, Command> hashMap, Collection collection, CommandManager commandManager, String... arg) throws JAXBException {
 
     };
 

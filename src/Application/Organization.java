@@ -21,7 +21,7 @@ public class Organization implements Comparable<Organization> {
     public Organization(int id, String name, Double x, long y, Coordinates coordinates, ZonedDateTime creationDate, Long annualTurnover, String fullName, OrganizationType type, Address officialAddress) throws JAXBException {
         this.id = id;
         this.name = name;
-        this.coordinates = new Coordinates(x,y);
+        this.coordinates = new Coordinates(x, y);
         this.creationDate = ZonedDateTime.now();
         this.annualTurnover = annualTurnover;
         this.fullName = fullName;
@@ -62,7 +62,8 @@ public class Organization implements Comparable<Organization> {
     }
 
     public int getId() {
-        return id;
+        if(id<0) throw new FieldException();
+        else return id;
     }
 
     public String getName() {
@@ -95,7 +96,7 @@ public class Organization implements Comparable<Organization> {
 
     @Override
     public int compareTo(Organization o) {
-        return 0;
+        return Address.compare(getOfficialAddress(), o.getOfficialAddress());
     }
 
     public void XmlOrgParse() {
@@ -113,6 +114,8 @@ public class Organization implements Comparable<Organization> {
 
 
     }
+
+
 }
 
 
