@@ -3,8 +3,11 @@ package Application;
 import Application.command.Command;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class ConsoleCommands {
     public void help(HashMap<String, Command> commandHashMap) {
@@ -50,5 +53,45 @@ public class ConsoleCommands {
 
     public void remove_grater(Collection collection) throws JAXBException {
         collection.remove_greater();
+    }
+    public void executeScript(File file, CommandManager mySwitch, Collection myCollection) {
+        try {
+            Scanner scanner = new Scanner(file);
+            String line = "";
+            while (!line.equals("exit") && scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                String[] lines = line.split(" ");
+                try {
+                    String command = lines[0];
+
+                    if (lines.length > 1) {
+                        String arg = lines[1];
+                        try {
+                            mySwitch.execute(command, mySwitch.getCommandHashMap(), myCollection, arg);
+                        } catch (IllegalStateException e) {
+                            System.out.println("Вы ввели неправильную команду, попробуйте снова!");
+                        } catch (ArgException e) {
+                            System.out.println(e.getMessage());
+                        } catch (JAXBException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            mySwitch.execute(command, mySwitch.getCommandHashMap(), myCollection);
+                        } catch (IllegalStateException e) {
+                            System.out.println("Вы ввели неправильную команду, попробуйте снова!");
+                        } catch (ArgException e) {
+                            System.out.println(e.getMessage());
+                        } catch (JAXBException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Вы ввели непрвильную команду, попробуйте снова");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Скрипт не найден.");
+        }
     }
 }

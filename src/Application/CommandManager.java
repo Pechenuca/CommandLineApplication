@@ -5,6 +5,7 @@ import Application.command.Command;
 import javax.xml.bind.JAXBException;
 import java.util.HashMap;
 
+
 public class CommandManager {
     private final HashMap<String, Command> commandHashMap = new HashMap<>();
 

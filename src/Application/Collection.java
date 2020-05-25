@@ -1,16 +1,22 @@
 package Application;
 
-import Application.Address;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import javax.xml.bind.JAXBException;
-import java.io.*;
-import java.nio.file.Path;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.NumberFormat;
 import java.time.ZonedDateTime;
-import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class Collection {
+    private File file = new File("PDM.txt");
+    private XStream xstream = new XStream(new StaxDriver());
     private Vector<Organization> vectorOrg = new Vector<Organization>();
     private ZonedDateTime creationTime;
     private Factory factory = new Factory();
@@ -27,13 +33,16 @@ public class Collection {
     //private String type =
     Collection(File file) throws FileNotFoundException {
         String fileName = "file";
-        Path path = Path.get(fileName);
+
         try {
-            // LinkedHashSet<Organization> collection1 = Scanner(file);
+            LinkedHashSet<Organization> collection1 = scanner(file);
+            collection.addAll(collection1);
+            IdGenerator.addAll();
             collection.addAll(collection1);
         } catch (FileException e) {
             System.out.println(e.getMessage());
         }
+        setCreationTime(ZonedDateTime.now());
     }
         /*Scanner scanner = new Scanner(file);
 
@@ -169,18 +178,41 @@ public class Collection {
 
     public void save() {
         try {
-            FileWriter writer1 = new FileWriter(file);
-            PrintWriter writer = new PrintWriter(file );
-            writer.
-            writer.write("");
+            PrintWriter printWriter = new PrintWriter(file);
+            Scanner scanner = new Scanner((Readable) collection);
+            String xml = xstream.toXML(collection);
+            PrintWriter writer = new PrintWriter(file);
+            System.out.println(xml);
+            writer.println(xml);
+
+        } catch (Exception ex) {
+            System.out.println("There was a problem writing the file.");
+        }
+    }
+
+
+
+
+
+
+            /*PrintWriter writer = new PrintWriter(file);
+            JAXBContext context = JAXBContext.newInstance(Organization.class);
+            Marshaller mar = context.createMarshaller();
+            mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            mar.marshal(file, new File("./file.xml"));
             int i = 0;
             for(Iterator<Organization> iterator = collection.iterator(); iterator.hasNext(); i++) {
                 writer.write(iterator.next().);
             }
-        } catch (IOException e) {
+
+
+        } catch (IOException | JAXBException e) {
+            System.out.println("Не получилось записать файл");
             e.printStackTrace();
         }
     }
+    */
+
 
     public void setVector(Vector<Organization> vector) {
         this.vectorOrg = vector;
