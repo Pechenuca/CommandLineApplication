@@ -20,7 +20,7 @@ public class CommandManager {
             throw new IllegalStateException(commandName + " -- такой команды нет");
 
         }
-        command.execute(commandHashMap, (java.util.Collection) collection, this, args);
+        command.execute(commandHashMap, collection, this, args);
     }
 
     public HashMap<String, Command> getCommandHashMap() {

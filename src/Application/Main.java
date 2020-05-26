@@ -4,6 +4,8 @@ import Application.command.*;
 
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,17 +14,17 @@ public class Main {
         String filePath = System.getenv("INPUT_PATH");
         System.out.println(System.getenv("INPUT_PATH"));
         if (filePath == null){
-            setPath("src\\ConsoleApp\\resources\\data.json");
+            setPath("src\\ConsoleApp\\resources\\file.xml");
         }else{
-            setPath(filePath+"data.json");
+            setPath(filePath+"file.xml");
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Main main = new Main();
         Scanner scanner = new Scanner(System.in);
         String line = "";
         ConsoleCommands consoleCommands = new ConsoleCommands();
-        Collection myCollection = new Collection(new com.sun.java.util.jar.pack.Package.File(getPath()));
+        Collection myCollection = new Collection(new File(getPath()));
         Command help = new HelpCommand(consoleCommands);
         Command info = new InfoCommand(consoleCommands);
         Command exit = new ExitCommand(consoleCommands);
@@ -31,19 +33,20 @@ public class Main {
         Command remove = new RemoveCommand(consoleCommands);
         Command update = new UpdateCommand(consoleCommands);
         Command clear = new ClearCommand(consoleCommands);
-        Command addIfMax = new AddIfMaxCommand(consoleCommands);
-        Command removeGreater = new RemoveGreater(consoleCommands);
-        Command removeLower = new RemoveLower(consoleCommands);
-        Command countGreaterThanSalary = new Count(consoleCommands);
+        Command printDescending = new Print_Descending(consoleCommands);
+        Command addIfMax = new ConsoleApp.Command.Add_If_MaxCommand(consoleCommands);
+        Command removeGreater = new Remove_By_IdCommand(consoleCommands);
+        Command filterContainsAnnualTurnover = new Filter_By_Annual_TurnoverCommand(consoleCommands);
+        Command countGreaterThanOfficialAddress = new Count_Greater_Than_Official_AddressCommand(consoleCommands);
 
         Command save = new SaveCommand(consoleCommands);
         Command execute = new Script(consoleCommands);
         CommandManager mySwitch = new CommandManager();
-        mySwitch.register("filter_contains_name", filter);
+        mySwitch.register("filter_contains_annual_turnover", filterContainsAnnualTurnover);
         mySwitch.register("save",save);
         mySwitch.register("execute_script",execute);
-        mySwitch.register("count_greater_than_salary",countGreaterThanSalary);
-        mySwitch.register("print_field_ascending_person",printfields);
+        mySwitch.register("count_greater_than_official_address",countGreaterThanOfficialAddress);
+        mySwitch.register("print_descending", printDescending);
         mySwitch.register("help", help);
         mySwitch.register("info", info);
         mySwitch.register("exit", exit);
@@ -54,7 +57,6 @@ public class Main {
         mySwitch.register("clear", clear);
         mySwitch.register("add_if_max",addIfMax);
         mySwitch.register("remove_greater", removeGreater);
-        mySwitch.register("remove_lower", removeLower);
         while (!line.equals("exit")) {
             line = scanner.nextLine();
             String[] lines = line.split(" ");

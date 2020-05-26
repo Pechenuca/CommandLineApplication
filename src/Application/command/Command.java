@@ -1,12 +1,10 @@
 package Application.command;
 
 import Application.CommandManager;
-
-import javax.activation.CommandMap;
 import javax.xml.bind.JAXBException;
-import java.util.Collection;
+import Application.Collection;
 import java.util.HashMap;
-import java.util.Vector;
+
 
 
 public class Command {

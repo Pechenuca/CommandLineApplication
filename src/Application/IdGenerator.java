@@ -4,12 +4,12 @@ import java.util.Vector;
 
 public class IdGenerator {
     private static Integer counter = 1;
-    private static Vector<Integer> idSet = new Vector<Integer>();
+    private static Vector<Integer> idSet = new Vector<>();
 
-    public static int generate() throws OverException {
+    public static int generate() throws OverflowException {
         while (idSet.contains(counter)) {
             if (counter == Integer.MAX_VALUE) {
-                throw new OverException();
+                throw new OverflowException();
             }
             counter++;
         }

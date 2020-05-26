@@ -4,7 +4,7 @@ import Application.ArgException;
 import Application.CommandManager;
 import Application.ConsoleCommands;
 
-import java.util.Collection;
+import Application.Collection;
 import java.util.HashMap;
 
 public class ShowCommand extends Command {

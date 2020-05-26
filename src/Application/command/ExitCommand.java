@@ -4,7 +4,7 @@ package Application.command;
 import Application.CommandManager;
 import Application.ConsoleCommands;
 
-import java.util.Collection;
+import Application.Collection;
 import java.util.HashMap;
 
 public class ExitCommand extends Command {

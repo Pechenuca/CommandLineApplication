@@ -1,17 +1,17 @@
 package Application.command;
 
 import Application.ArgException;
+import Application.Collection;
 import Application.CommandManager;
 import Application.ConsoleCommands;
 
-import Application.Collection;
 import java.util.HashMap;
 
-public class SaveCommand extends Command{
+public class RemoveGreaterCommand extends Command{
     private final ConsoleCommands consoleCommands;
 
-    public SaveCommand(ConsoleCommands consoleCommands) {
-        setDescription("сохранить коллекцию в файл");
+    public RemoveGreaterCommand(ConsoleCommands consoleCommands) {
+        setDescription("удалить из коллекции все элементы, превышающие заданный");
         this.consoleCommands = consoleCommands;
     }
 
@@ -19,7 +19,7 @@ public class SaveCommand extends Command{
     public void execute(HashMap<String, Command> commandMap, Collection collection, CommandManager mySwitch, String... arg) {
         if (arg.length > 0) throw new ArgException();
         else {
-            consoleCommands.save(collection);
+            consoleCommands.removeGreater(collection);
         }
     }
 }

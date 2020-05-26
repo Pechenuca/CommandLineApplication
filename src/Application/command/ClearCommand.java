@@ -5,7 +5,7 @@ import Application.CommandManager;
 import Application.ConsoleCommands;
 
 import javax.xml.bind.JAXBException;
-import java.util.Collection;
+import Application.Collection;
 import java.util.HashMap;
 
 public class ClearCommand extends Command{

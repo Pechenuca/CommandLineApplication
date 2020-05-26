@@ -2,14 +2,14 @@ package Application;
 
 import Application.command.Command;
 
+
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsoleCommands {
+
     public void help(HashMap<String, Command> commandHashMap) {
         System.out.println("Справка:");
         for (Map.Entry<String, Command> entry : commandHashMap.entrySet()) {
@@ -106,6 +106,39 @@ public class ConsoleCommands {
                     "зарплата выше " + official_address + " рублей.");
         } catch (NumberFormatException e) {
             throw new ArgException();
+        }
+    }
+
+    public void save(Collection collection) {
+        collection.save();
+        System.out.println("Коллекция успешно сохранена");
+    }
+
+    public void addIfMax(Collection collection) throws JAXBException {
+        if (collection.addIfMax()) {
+            System.out.println("Организация успешно добавлена");
+        } else {
+            System.out.println("Значение организации меньше максимального!");
+        }
+    }
+
+    public void removeGreater(Collection collection) throws JAXBException {
+        collection.remove_greater();
+
+    }
+
+
+    public void print_descending(Collection collection) {
+        collection.print_descending();
+    }
+
+
+
+    public void filterTurnover(Collection collection, String arg) {
+        for(Organization organization: collection.getCollection()) {
+            if(organization.getAnnualTurnover().equals(arg)) {
+                System.out.println(organization.toString());
+            }
         }
     }
 }

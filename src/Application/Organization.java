@@ -76,8 +76,9 @@ public class Organization implements Comparable<Organization> {
         return creationDate;
     }
 
-    public Long getAnnualTurnover() {
-        return annualTurnover;
+    public String getAnnualTurnover() {
+        if(annualTurnover == 0 || annualTurnover.toString().equals("")) throw new FieldException();
+        else return annualTurnover.toString();
     }
 
     public String getFullName() {

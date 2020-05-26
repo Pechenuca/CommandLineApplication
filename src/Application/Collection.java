@@ -7,8 +7,8 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.text.NumberFormat;
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Vector;
@@ -16,7 +16,7 @@ import java.util.Vector;
 public class Collection {
     private File file = new File("PDM.txt");
     private XStream xstream = new XStream(new StaxDriver());
-    private Vector<Organization> vectorOrg = new Vector<Organization>();
+    private Vector<Organization> vectorOrg = new Vector<>();
     private ZonedDateTime creationTime;
     private Factory factory = new Factory();
     private int countOfOrg;
@@ -60,7 +60,7 @@ public class Collection {
         getVector().add(organization);
     }
 
-    public boolean addIfMax() throws JAXBException, JAXBException {
+    public boolean addIfMax() throws JAXBException {
         Organization organization = factory.createOrganization();
         if (isMax(organization)) {
             getVector().add(organization);
@@ -98,8 +98,6 @@ public class Collection {
 
     public void remove_by_id(int id) {
         if (!getVector().isEmpty()) {
-
-
             for (Organization organization : vectorOrg) {
                 if (organization.getId() == id) {
                     IdGenerator.remove(organization.getId());
@@ -109,8 +107,10 @@ public class Collection {
                 }
             }
             System.out.println("Организация с данным id не найдена");
+        } else {
+
+            System.out.println("Коллекция пуста");
         }
-        System.out.println("Коллекция пуста");
     }
 
     public void clear() {
@@ -130,7 +130,7 @@ public class Collection {
     public void remove_greater() throws JAXBException {
         if (!getVector().isEmpty()) {
             Organization newOrganization = factory.createOrganization();
-            Vector<Organization> vector1 = new Vector<Organization>();
+            Vector<Organization> vector1 = new Vector<>();
             IdGenerator.clear();
             vectorOrg.forEach(organization -> {
                 if (newOrganization.compareTo(organization) >= 0) {
@@ -149,42 +149,49 @@ public class Collection {
 
     public long count_greater_than_official_address(int address1) {
 
-            return collection.stream().filter(worker -> worker.getOfficialAddress() > address1).count();
+        return collection.stream().filter(worker -> worker.getOfficialAddress() > address1).count();
 
     }
 
-        public void replace ( int id) throws JAXBException {
-            if (!getCollection().isEmpty()) {
-                for (Organization organization : getCollection()) {
-                    collection.remove(organization);
-                    Organization newOrg = factory.createOrganization();
-                    newOrg.setId(id);
-                    collection.add(newOrg);
-                    System.out.println("Организация создана");
-                    break;
-                }
-
-            } else {
-                System.out.println("организация с таким id не найдена");
+    public void replace(int id) throws JAXBException {
+        if (!getCollection().isEmpty()) {
+            for (Organization organization : getCollection()) {
+                collection.remove(organization);
+                Organization newOrg = factory.createOrganization();
+                newOrg.setId(id);
+                collection.add(newOrg);
+                System.out.println("Организация создана");
+                break;
             }
 
+        } else {
+            System.out.println("организация с таким id не найдена");
         }
 
-        public void save () {
-            try {
-                PrintWriter printWriter = new PrintWriter(file);
-                Scanner scanner = new Scanner((Readable) collection);
-                String xml = xstream.toXML(collection);
-                PrintWriter writer = new PrintWriter(file);
-                System.out.println(xml);
-                writer.println(xml);
+    }
 
-            } catch (Exception ex) {
-                System.out.println("There was a problem writing the file.");
-            }
+    public void save() {
+        try {
+            PrintWriter printWriter = new PrintWriter(file);
+            Scanner scanner = new Scanner((Readable) collection);
+            String xml = xstream.toXML(collection);
+            PrintWriter writer = new PrintWriter(file);
+            System.out.println(xml);
+            writer.println(xml);
+
+        } catch (Exception ex) {
+            System.out.println("There was a problem writing the file.");
+        }
+    }
+
+    public void print_descending() {
+        Collections.sort(vectorOrg);
+        System.out.println("Элементы колекции в порядке убывания:");
+        for (Organization organization : vectorOrg) {
+            System.out.println(organization);
         }
 
-
+    }
 
 
 
@@ -208,40 +215,42 @@ public class Collection {
     */
 
 
-        public void setVector (Vector < Organization > vector) {
-            this.vectorOrg = vector;
-        }
-
-        public ZonedDateTime getCreationTime () {
-            return creationTime;
-        }
-
-        public void setCreationTime (ZonedDateTime creationTime){
-            this.creationTime = creationTime;
-        }
-
-        public Factory getFactory () {
-            return factory;
-        }
-
-        public void setFactory (Factory factory){
-            this.factory = factory;
-        }
-
-        public File getFile () {
-            return file;
-        }
-
-        public String getType () {
-            return type;
-        }
-
-        public Vector<Organization> getCollection () {
-            return collection;
-        }
-
-        public void setFile (File file){
-            this.file = file;
-        }
+    public void setVector(Vector<Organization> vector) {
+        this.vectorOrg = vector;
     }
+
+    public ZonedDateTime getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(ZonedDateTime creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Vector<Organization> getCollection() {
+        return collection;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+}
+
+
 

@@ -6,7 +6,7 @@ import Application.ConsoleCommands;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.util.Collection;
+import Application.Collection;
 import java.util.HashMap;
 
 public class Script extends Command {
