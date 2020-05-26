@@ -1,7 +1,5 @@
 package Application;
 
-import Application.Address;
-
 import javax.xml.bind.JAXBException;
 import java.util.Scanner;
 
@@ -30,7 +28,7 @@ public class Factory {
         System.out.println();
         setFullName();
         setAnnualTurnover();
-        //   setOfficialAddress();
+        setOfficialAddress();
         return new Organization(id, name, x, y, coordinates, creationDate, annualTurnover, fullName, type, officialAddress);
     }
 

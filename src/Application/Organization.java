@@ -4,6 +4,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.ZonedDateTime;
 
 public class Organization implements Comparable<Organization> {
@@ -95,7 +97,12 @@ public class Organization implements Comparable<Organization> {
         else return officialAddress_in_integer;
     }
 
-    public void XmlOrgParse() {
+    @Override
+    public int compareTo(Organization o) {
+        return 0;
+    }
+
+    /*public void XmlOrgParse() {
         try {
             File orgFile = new File("file");
             JAXBContext orgContext = JAXBContext.newInstance(Organization.class);
@@ -111,11 +118,9 @@ public class Organization implements Comparable<Organization> {
 
     }
 
+     */
 
-    @Override
-    public int compareTo(Organization o) {
-        return 0;
-    }
+
 }
 
 

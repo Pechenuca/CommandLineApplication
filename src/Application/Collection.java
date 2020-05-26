@@ -29,7 +29,7 @@ public class Collection {
     Vector<Organization> collection = new Vector<Organization>();
 
     //private String type =
-    Collection(File file) throws FileNotFoundException {
+   /* Collection(File file) throws FileNotFoundException {
         String fileName = "file";
 
         try {
@@ -178,6 +178,7 @@ public class Collection {
             PrintWriter writer = new PrintWriter(file);
             System.out.println(xml);
             writer.println(xml);
+            writer.close();
 
         } catch (Exception ex) {
             System.out.println("There was a problem writing the file.");
