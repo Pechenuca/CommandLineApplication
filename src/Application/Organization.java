@@ -1,7 +1,5 @@
 package Application;
 
-import Application.Address;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -90,13 +88,10 @@ public class Organization implements Comparable<Organization> {
         return type;
     }
 
-    public Address getOfficialAddress() {
-        return officialAddress;
-    }
-
-    @Override
-    public int compareTo(Organization o) {
-        return Address.compare(getOfficialAddress(), o.getOfficialAddress());
+    public int getOfficialAddress() {
+        int officialAddress_in_integer = Integer.parseInt(String.valueOf(officialAddress));
+        if(officialAddress_in_integer < 0 ) throw new FieldException();
+        else return officialAddress_in_integer;
     }
 
     public void XmlOrgParse() {
@@ -116,6 +111,10 @@ public class Organization implements Comparable<Organization> {
     }
 
 
+    @Override
+    public int compareTo(Organization o) {
+        return 0;
+    }
 }
 
 

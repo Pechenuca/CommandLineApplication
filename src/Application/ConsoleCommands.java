@@ -16,6 +16,7 @@ public class ConsoleCommands {
             System.out.println(entry.getKey() + entry.getValue().getArgs() + ": " + entry.getValue().getDescription());
         }
     }
+
     public void exit() {
         System.out.println("Таки до новых встреч!");
     }
@@ -43,6 +44,7 @@ public class ConsoleCommands {
     public void clear(Collection collection) {
         collection.clear();
     }
+
     public void remove_first(Collection collection) {
         collection.remove_first();
     }
@@ -54,6 +56,7 @@ public class ConsoleCommands {
     public void remove_grater(Collection collection) throws JAXBException {
         collection.remove_greater();
     }
+
     public void executeScript(File file, CommandManager mySwitch, Collection myCollection) {
         try {
             Scanner scanner = new Scanner(file);
@@ -94,4 +97,18 @@ public class ConsoleCommands {
             System.out.println("Скрипт не найден.");
         }
     }
+
+
+    public void count_greater_than_official_address(Collection collection, String arg) {
+        try {
+            int official_address = Integer.parseInt(arg);
+            System.out.println("На данный момент мы имеем " + collection.count_greater_than_official_address(official_address) + " рабочих чья " +
+                    "зарплата выше " + official_address + " рублей.");
+        } catch (NumberFormatException e) {
+            throw new ArgException();
+        }
+    }
 }
+
+
+
